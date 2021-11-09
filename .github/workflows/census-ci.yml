@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: iterative/setup-dvc@v1
       - name: Credentials to access AWS
-      - uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -29,17 +29,12 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: |
-          make install
-      - name: Lint with flake8
-        run: |
-          make lint
-      - name: DVC pull
-        run: |
-          make dvc      
+        run: make install
+      - name: flake8
+        run: make lint
+      - name: Pull data with dvc
+        run: make dvc
       - name: Test with pytest
-        run: |
-          make test
-      - name: Format code
-        run: |
-          make format
+        run: make test
+      - name: format with black
+        run: make format
