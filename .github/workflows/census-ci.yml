@@ -1,9 +1,8 @@
 # This is a basic workflow to help you get started with Actions
-
-name: This is a workflow to help with the Census Bureau Classification pipeline with FastAPI and Heroku
+name: Census Bureau Salary Classification Pipeline with FastAPI and Heroku
 
 # Controls when the workflow will run
-on: [push]
+on: [ push ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -15,26 +14,30 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # Configure dvc and credentials to access AWS
       - uses: actions/checkout@v2
       - uses: iterative/setup-dvc@v1
-      - name: Credentials to access AWS
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-3
+          aws-region: ap-southeast-2     
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: make install
-      - name: flake8
-        run: make lint
-      - name: Pull data with dvc
-        run: make dvc
+        run: |
+          make install
+      - name: Lint with flake8
+        run: |
+          make lint
+      - name: DVC pull
+        run: |
+          make dvc      
       - name: Test with pytest
-        run: make test
-      - name: format with black
-        run: make format
+        run: |
+          make test
+      - name: Format code
+        run: |
+          make format
