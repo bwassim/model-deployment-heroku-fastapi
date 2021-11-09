@@ -3,9 +3,7 @@
 name: This is a workflow to help with the Census Bureau Classification pipeline with FastAPI and Heroku
 
 # Controls when the workflow will run
-on:
-  # Triggers the workflow on push 
-  push: [push]
+on: [push]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
