@@ -29,12 +29,17 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: make install
-      - name: Lint 
-        run: make lint
-      - name: Pull data with dvc
-        run: make dvc
+        run: |
+          make install
+      - name: Lint with flake8
+        run: |
+          make lint
+      - name: DVC pull
+        run: |
+          make dvc      
       - name: Test with pytest
-        run: make test
-      - name: format with black
-        run: make format
+        run: |
+          make test
+      - name: Format code
+        run: |
+          make format
