@@ -25,7 +25,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-3
       - name: Set up Python 3.8
-        uses: action/setup-python@v1
+        uses: actions/setup-python@v1
         with:
           python-version: 3.8
       - name: Install dependencies
