@@ -1,0 +1,10 @@
+numpy 
+pandas
+scikit-learn
+ipython
+pytest
+flake8
+black
+dvc
+fastapi
+pydantic
