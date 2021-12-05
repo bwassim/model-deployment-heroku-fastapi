@@ -1,0 +1,6 @@
+stages:
+  clean_data:
+    cmd: r u n
+    deps:
+    - starter/data/census.csv
+    - starter/starter/clean_data.py
