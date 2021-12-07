@@ -17,7 +17,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Configure dvc and credentials to access AWS
       - uses: actions/checkout@v2
-      # - uses: iterative/setup-dvc@v1
+      - uses: iterative/setup-dvc@v1
       - name: Credentials to access AWS
         uses: aws-actions/configure-aws-credentials@v1
         with:

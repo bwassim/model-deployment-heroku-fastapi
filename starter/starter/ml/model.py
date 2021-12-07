@@ -1,7 +1,13 @@
+import logging
+import numpy as np
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.linear_model import LogisticRegression
+
+logger = logging.getLogger(__name__)
 
 
-# Optional: implement hyperparameter tuning.
+# Optional: implement hyper parameter tuning.
 def train_model(X_train, y_train):
     """
     Trains a machine learning model and returns it.
@@ -17,8 +23,16 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+    param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
+                  'max_iter': [400, 1000]}
+    logger.info("Train the Census model with the following hyperparameters: %s", param_grid)
+    lr = LogisticRegression()
+    grid_search = GridSearchCV(lr, param_grid, cv=5, return_train_score=True)
+    grid_search.fit(X_train, y_train)
+    logger.info("The best parameters: %s", grid_search.best_params_)
+    logger.info("The best score: %s", grid_search.best_score_)
 
-    pass
+    return grid_search.best_estimator_
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +71,5 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+
+    return model.predict(X)
