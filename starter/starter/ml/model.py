@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # Optional: implement hyper parameter tuning.
 def train_model(X_train, y_train):
     """
-    Trains a machine learning model and returns it.
+    Trains a machine learning model and returns it
 
     Inputs
     ------
@@ -23,7 +23,7 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
+    param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 150],
                   'max_iter': [400, 1000]}
     logger.info("Train the Census model with the following hyperparameters: %s", param_grid)
     lr = LogisticRegression()
