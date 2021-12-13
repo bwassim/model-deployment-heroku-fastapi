@@ -23,9 +23,10 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 150],
-                  'max_iter': [400, 1000]}
-    logger.info("Train the Census model with the following hyperparameters: %s", param_grid)
+    param_grid = {"C": [0.001, 0.01, 0.1, 1, 10, 150], "max_iter": [400, 1000]}
+    logger.info(
+        "Train the Census model with the following hyperparameters: %s", param_grid
+    )
     lr = LogisticRegression()
     grid_search = GridSearchCV(lr, param_grid, cv=5, return_train_score=True)
     grid_search.fit(X_train, y_train)
@@ -58,7 +59,7 @@ def compute_model_metrics(y, preds):
 
 
 def inference(model, X):
-    """ Run model inferences and return the predictions.
+    """Run model inferences and return the predictions.
 
     Inputs
     ------

@@ -58,7 +58,11 @@ def go(args):
     )
     # --------
     with open(args.save_score, "w") as f:
-        json.dump(obj={"precision": precision, "recall": recall, "fbeta": fbeta}, fp=f, indent=5)
+        json.dump(
+            obj={"precision": precision, "recall": recall, "fbeta": fbeta},
+            fp=f,
+            indent=5,
+        )
 
     logger.info("Save scores for the sliced test dataset")
     scores = defaultdict(list)

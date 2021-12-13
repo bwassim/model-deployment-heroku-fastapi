@@ -1,6 +1,6 @@
-from starter.main import CensusData
+from main import CensusData
 from fastapi.testclient import TestClient
-from starter.main import app
+from main import app
 
 
 # Test fastapi root
@@ -10,6 +10,14 @@ def test_root():
     # with TestClient(app) as client:
     r = client.get("/")
     assert r.status_code == 200
+
+
+def test_get():
+    """Test reception from endpoint"""
+    client = TestClient(app)
+    response = client.get("/send")
+    assert response.status_code == 200
+    assert response.json()["send"] == "well received"
 
 
 def test_prediction_below_50K():

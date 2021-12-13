@@ -44,16 +44,28 @@ def go(args):
 
     model_census = train_model(X_train, y_train)
     # --------
-    logger.info("Test the model and evaluate it against the test data: %s", args.save_test_data)
+    logger.info(
+        "Test the model and evaluate it against the test data: %s", args.save_test_data
+    )
 
     X_test, y_test, _, _ = process_data(
-        test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+        test,
+        categorical_features=cat_features,
+        label="salary",
+        training=False,
+        encoder=encoder,
+        lb=lb,
     )
     predictions = inference(model_census, X_test)
     # Calculate the scores of the test data
     precision, recall, fbeta = compute_model_metrics(y_test, predictions)
     # --------
-    logger.info("Scores for test data: precision: %.2f, recall: %.2f, fbeta: %.2f", precision, recall, fbeta)
+    logger.info(
+        "Scores for test data: precision: %.2f, recall: %.2f, fbeta: %.2f",
+        precision,
+        recall,
+        fbeta,
+    )
 
     # --------
     logger.info("Saving the trained model to %s", args.save_model)
@@ -68,58 +80,57 @@ def go(args):
     joblib.dump(lb, args.save_lb)
 
     # -------
-    logger.info("Successfully trained, tested and saved a classifier for the Census data")
+    logger.info(
+        "Successfully trained, tested and saved a classifier for the Census data"
+    )
 
     # Train and save a model.
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Preprocess and train a model")
+    parser = argparse.ArgumentParser(description="Preprocess and train a model")
     parser.add_argument(
         "--input_artifact",
         type=str,
         help="Cleaned data for Census",
         default="./starter/data/census_cleaned.csv",
-        required=False
+        required=False,
     )
     parser.add_argument(
         "--test_size",
         type=int,
         help="Percentage of test data while the remaining is for training",
         default=0.2,
-        required=False
+        required=False,
     )
     parser.add_argument(
         "--save_test_data",
         type=str,
         help="Test data for model evaluation",
         default="./starter/data/census_cleaned_test.csv",
-        required=False
+        required=False,
     )
     parser.add_argument(
         "--target_label",
         type=str,
         help=" Target variable name",
         default="salary",
-        required=False
+        required=False,
     )
     parser.add_argument(
         "--save_model",
         type=str,
         default="./starter/model/census_model_classifier.joblib",
-        required=False
+        required=False,
     )
     parser.add_argument(
         "--save_encoder",
         type=str,
         default="./starter/model/encoder_census.joblib",
-        required=False
+        required=False,
     )
     parser.add_argument(
-        "--save_lb",
-        type=str,
-        default="./starter/model/lb_census.joblib"
+        "--save_lb", type=str, default="./starter/model/lb_census.joblib"
     )
     args = parser.parse_args()
     go(args)

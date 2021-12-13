@@ -50,6 +50,9 @@ class CensusResponse(BaseModel):
 async def root():
     return {"message": "Hello there!"}
 
+@app.get("/send", summary="Test endpoint response", description="Should expect reception")
+async def send():
+    return {"send": "well received"}
 
 @app.post("/predict", summary="Predict API endpoint",
           description="predict classification result for Census data",
@@ -84,7 +87,6 @@ async def get_prediction(request: CensusData = Body(default=None, examples= {
                             'relationship', 'race', 'sex', 'native-country']
     X, _, _, _ = process_data(census_df, cat_features, None, training=False, encoder=encoder, lb=lb)
     preds = inference(model, X)
-    logger.info("This is prediction %.2f", preds)
     return {"prediction": "<=50K" if preds <=0.5 else ">=50K"}
 
 
