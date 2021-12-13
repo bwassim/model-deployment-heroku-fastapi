@@ -1,7 +1,4 @@
 # Api to make prediction with the trained Census model
-
-
-from typing import Union
 import logging
 import joblib
 import pandas as pd
@@ -25,6 +22,7 @@ class CensusData(BaseModel):
     """
     Census prediction
     """
+
     age: int = Field(..., example=39)
     workclass: str = Field(..., example="State-gov")
     fnlgt: int = Field(..., example="77516")
@@ -42,7 +40,8 @@ class CensusData(BaseModel):
 
 
 class CensusResponse(BaseModel):
-    """Census response data """
+    """Census response data"""
+
     prediction: str
 
 
@@ -50,46 +49,63 @@ class CensusResponse(BaseModel):
 async def root():
     return {"message": "Hello there!"}
 
-@app.get("/send", summary="Test endpoint response", description="Should expect reception")
+
+@app.get(
+    "/send", summary="Test endpoint response", description="Should expect reception"
+)
 async def send():
     return {"send": "well received"}
 
-@app.post("/predict", summary="Predict API endpoint",
-          description="predict classification result for Census data",
-          response_model=CensusResponse)
-async def get_prediction(request: CensusData = Body(default=None, examples= {
-    "below": {
-        "summary": "<=50K",
-        "description": "Sample data with prediction <=50K",
-        "value": {
-            "age": 39,
-            "workclass": "State-gov",
-            "fnlgt": 77516,
-            "education": "Bachelors",
-            "education-num": 13,
-            "marital-status": "Never-married",
-            "occupation": "Adm-clerical",
-            "relationship": "Not-in-family",
-            "race": "White",
-            "sex": "Male",
-            "capital-gain": 2174,
-            "capital-loss": 0,
-            "hours-per-week": 40,
-            "native-country": "United-States",
-        }
-    }
-})):
+
+@app.post(
+    "/predict",
+    summary="Predict API endpoint",
+    description="predict classification result for Census data",
+    response_model=CensusResponse,
+)
+async def get_prediction(
+    request: CensusData = Body(
+        default=None,
+        examples={
+            "below": {
+                "summary": "<=50K",
+                "description": "Sample data with prediction <=50K",
+                "value": {
+                    "age": 39,
+                    "workclass": "State-gov",
+                    "fnlgt": 77516,
+                    "education": "Bachelors",
+                    "education-num": 13,
+                    "marital-status": "Never-married",
+                    "occupation": "Adm-clerical",
+                    "relationship": "Not-in-family",
+                    "race": "White",
+                    "sex": "Male",
+                    "capital-gain": 2174,
+                    "capital-loss": 0,
+                    "hours-per-week": 40,
+                    "native-country": "United-States",
+                },
+            }
+        },
+    )
+):
     # convert data into a dictionary, then a pandas dataframe
     census_df = pd.DataFrame.from_dict([request.dict(by_alias=True)])
 
     # process data
-    cat_features = ['workclass', 'education', 'marital-status', 'occupation',
-                            'relationship', 'race', 'sex', 'native-country']
-    X, _, _, _ = process_data(census_df, cat_features, None, training=False, encoder=encoder, lb=lb)
+    cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
+    X, _, _, _ = process_data(
+        census_df, cat_features, None, training=False, encoder=encoder, lb=lb
+    )
     preds = inference(model, X)
-    return {"prediction": "<=50K" if preds <=0.5 else ">=50K"}
-
-
-
-
-
+    return {"prediction": "<=50K" if preds <= 0.5 else ">=50K"}
