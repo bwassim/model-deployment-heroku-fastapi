@@ -6,7 +6,7 @@ from starter.starter.ml.data import process_data
 @pytest.fixture(scope="session")
 def data():
     """Load original cleaned test data"""
-    df_test = pd.read_csv("../data/census_cleaned_test.csv", nrows=200)
+    df_test = pd.read_csv("./data/census_cleaned_test.csv", nrows=200)
     return df_test
 
 
