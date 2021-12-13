@@ -8,6 +8,14 @@ from pydantic import BaseModel, Field
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
 
+import os
+# Heroku support for DVC, so it can pull in data from DVC upon app startup
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
