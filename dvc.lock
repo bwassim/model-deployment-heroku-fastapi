@@ -7,8 +7,8 @@ stages:
       md5: 145de00f6e6053d3f7044628f9a5b5ff
       size: 3974474
     - path: starter/starter/clean_data.py
-      md5: 8a6883c81887809671c9b7a9e14906ba
-      size: 1450
+      md5: 794aa8f2710144d94bf643aa981588ae
+      size: 1466
     outs:
     - path: starter/data/census_cleaned.csv
       md5: 109c3c826741a590001de91b594b05e3
@@ -20,21 +20,21 @@ stages:
       md5: 109c3c826741a590001de91b594b05e3
       size: 3518605
     - path: starter/starter/ml/data.py
-      md5: 6979161b4d3418b42c1e04036651878b
-      size: 2544
+      md5: 7a5d03f6703af2f1b72e9705e366eb69
+      size: 2543
     - path: starter/starter/ml/model.py
-      md5: 50e2150c3f875a233f2ab9f5b1878240
-      size: 1975
+      md5: de49ea39aec2b66c333ddd651a0bc722
+      size: 1970
     - path: starter/starter/train_model.py
-      md5: f39f70ba1f677874db148804b9c75b07
-      size: 3745
+      md5: 02273e3ee1c4cc22078c16f99ac5c373
+      size: 3834
     outs:
     - path: starter/data/census_cleaned_test.csv
-      md5: a66e00eb42583b9707e65d53ab45ea04
-      size: 704923
+      md5: 8888257b22df58e9cc29fa8bd9215a61
+      size: 703478
     - path: starter/model/census_model_classifier.joblib
-      md5: 2b58650d6692001c39b9c0e1a784e6d1
-      size: 1639
+      md5: 16ddfcdc02898e8081c2fe429b1392cf
+      size: 1646
     - path: starter/model/encoder_census.joblib
       md5: cda18c6561b7ef57f19f48d00d3ff62b
       size: 3898
@@ -45,11 +45,11 @@ stages:
     cmd: python starter/starter/slicing_performence.py
     deps:
     - path: starter/data/census_cleaned_test.csv
-      md5: a66e00eb42583b9707e65d53ab45ea04
-      size: 704923
+      md5: 8888257b22df58e9cc29fa8bd9215a61
+      size: 703478
     - path: starter/model/census_model_classifier.joblib
-      md5: 2b58650d6692001c39b9c0e1a784e6d1
-      size: 1639
+      md5: 16ddfcdc02898e8081c2fe429b1392cf
+      size: 1646
     - path: starter/model/encoder_census.joblib
       md5: cda18c6561b7ef57f19f48d00d3ff62b
       size: 3898
@@ -57,12 +57,12 @@ stages:
       md5: 5025695085b01a6b6c57df2159831c2d
       size: 403
     - path: starter/starter/slicing_performence.py
-      md5: d3b4ff72b3bede1ee0fb879c5542ece7
-      size: 4381
+      md5: 77e5a70555f42b5177362c968a35792e
+      size: 4428
     outs:
     - path: starter/model/score_full.json
-      md5: 3d1c5874032ddae2b29a4459347fc9b0
-      size: 110
+      md5: 12bcda9ef0b8e00b9015fec6886fa241
+      size: 109
     - path: starter/model/score_slices.json
-      md5: 6ca56c8105b41d0da6815078969e7ded
-      size: 18791
+      md5: 5eb49fe3ada2f26b66b7dfc223936313
+      size: 18798
