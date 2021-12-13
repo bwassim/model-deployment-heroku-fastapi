@@ -5,6 +5,8 @@ ipython
 pytest
 flake8
 black
-dvc
+dvc[s3]
 fastapi
+uvicorn
+gunicorn
 pydantic
