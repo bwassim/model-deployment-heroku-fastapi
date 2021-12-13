@@ -31,11 +31,12 @@ jobs:
           python-version: 3.8
       - name: Install dependencies
         run: make install
+      - name: format with black
+        run: make format
       - name: flake8
         run: make lint
       - name: Pull data with dvc
         run: make dvc
       - name: Test with pytest
         run: make test
-      - name: format with black
-        run: make format
+

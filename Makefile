@@ -8,7 +8,7 @@ format:
 		black starter/*.py
 
 lint:
-		flake8 --ignore=E303,E302  --max-line-length=88 starter/*.py
+		flake8 --ignore=E303,E302  --max-line-length=127 starter/*.py
 
 dvc:
 		dvc pull -r s3remote
