@@ -5,8 +5,8 @@ import pandas as pd
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, Field
 
-from starter.ml.data import process_data
-from starter.ml.model import inference
+from .starter.ml.data import process_data
+from .starter.ml.model import inference
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()

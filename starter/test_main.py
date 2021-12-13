@@ -1,6 +1,6 @@
-from main import CensusData
+from .main import CensusData
 from fastapi.testclient import TestClient
-from main import app
+from .main import app
 
 
 # Test fastapi root
