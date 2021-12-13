@@ -5,17 +5,17 @@ import pandas as pd
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, Field
 
-from .starter.ml.data import process_data
-from .starter.ml.model import inference
+from starter.starter.ml.data import process_data
+from starter.starter.ml.model import inference
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
 app = FastAPI()
 
-model = joblib.load("model/census_model_classifier.joblib")
-encoder = joblib.load("model/encoder_census.joblib")
-lb = joblib.load("model/lb_census.joblib")
+model = joblib.load("starter/model/census_model_classifier.joblib")
+encoder = joblib.load("starter/model/encoder_census.joblib")
+lb = joblib.load("starter/model/lb_census.joblib")
 
 
 class CensusData(BaseModel):
