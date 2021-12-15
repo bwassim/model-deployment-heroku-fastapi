@@ -1,5 +1,6 @@
 # ML Pipeline for Census Bureau Salary Classification
 ## The pipeline leverages the use of 
+
 - Github Action
 - DVC
 - FastAPI and Heroku
