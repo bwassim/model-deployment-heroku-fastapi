@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
-
+import subprocess
 import os
 # Heroku support for DVC, so it can pull in data from DVC upon app startup
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
