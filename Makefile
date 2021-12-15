@@ -11,4 +11,4 @@ lint:
 		flake8 --ignore=E303,E302,E266,W503 --max-line-length=127 starter/*.py
 
 dvc:
-		dvc pull train_model
+		dvc pull -r s3remote
