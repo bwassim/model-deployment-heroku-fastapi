@@ -13,9 +13,17 @@ import os
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
     os.system("dvc config core.hardlink_lock true")
-    if os.system("dvc pull") != 0:
-        exit("dvc pull failed")
-    os.system("rm -r .dvc .apt/usr/lib/dvc")
+    dvc_output = subprocess.run(
+        ["dvc", "pull"], capture_output=True, text=True)
+    print(dvc_output.stdout)
+    print(dvc_output.stderr)
+    if dvc_output.returncode != 0:
+        print("dvc pull failed")
+    else:
+        os.system("rm -r .dvc .apt/usr/lib/dvc")
+#    if os.system("dvc pull") != 0:
+#        exit("dvc pull failed")
+#    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
