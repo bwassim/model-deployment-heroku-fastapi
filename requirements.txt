@@ -6,7 +6,7 @@ pytest
 flake8
 black
 dvc[s3]
-dvc==2.6.4
+dvc
 fastapi
 uvicorn
 gunicorn
