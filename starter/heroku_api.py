@@ -27,9 +27,8 @@ def prediction_below(args):
     }
     response = requests.post(f"{args.base_url}/predict", json=body)
     assert response.status_code == 200
-    print(f"Response status code: {response.status_code}")
-    # logger.info("Response status code for prediction below %s", response.status_code)
-    # assert response.status_code == 200
+    logger.info("Response status code for prediction below %s", response.status_code)
+    assert response.status_code == 200
     r = response.json()
     print(
         f"A person with {body['education']} aged {body['age']} will probably earn {r['prediction']}"
@@ -57,9 +56,9 @@ def prediction_above(args):
     }
     response = requests.post(f"{args.base_url}/predict", json=body)
     assert response.status_code == 200
-    print(f"Response status code: {response.status_code}")
-    # logger.info("Response status code for prediction below %s", response.status_code)
-    # assert response.status_code == 200
+
+    logger.info("Response status code for prediction below %s", response.status_code)
+    assert response.status_code == 200
     r = response.json()
     print(
         f"A person with {body['education']} aged {body['age']} will probably earn {r['prediction']}"
@@ -74,6 +73,7 @@ if __name__ == "__main__":
         type=str,
         help="This is the base heroku url",
         required=False,
+        # default="http://127.0.0.1:5000"
         default="https://census-bureau-predict-salary.herokuapp.com/",
     )
     args = parser.parse_args()
