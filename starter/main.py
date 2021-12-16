@@ -1,4 +1,5 @@
 # Api to make prediction with the trained Census model
+import os
 import logging
 import joblib
 import pandas as pd
@@ -7,7 +8,7 @@ from pydantic import BaseModel, Field
 
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
-import os
+
 # Heroku support for DVC, so it can pull in data from DVC upon app startup
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
@@ -16,15 +17,17 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
         exit("dvc pull failed")
     os.system("rm -r .dvc .apt/usr/lib/dvc")
 
+root = os.getcwd()
+print(root)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
 app = FastAPI()
 
-model = joblib.load("./starter/model/census_model_classifier.joblib")
-encoder = joblib.load("./starter/model/encoder_census.joblib")
-lb = joblib.load("./starter/model/lb_census.joblib")
+model = joblib.load(os.path(root, "starter/model/census_model_classifier.joblib"))
+encoder = joblib.load(os.path(root, "starter/model/encoder_census.joblib"))
+lb = joblib.load(os.path(root, "starter/model/lb_census.joblib"))
 
 
 class CensusData(BaseModel):
