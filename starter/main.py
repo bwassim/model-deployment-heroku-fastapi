@@ -1,6 +1,5 @@
 # Api to make prediction with the trained Census model
 import os
-import logging
 import joblib
 import pandas as pd
 from fastapi import FastAPI, Body
@@ -18,16 +17,16 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 root = os.getcwd()
-print(root)
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
-logger = logging.getLogger()
 
 app = FastAPI()
 
-model = joblib.load(os.path(root, "starter/model/census_model_classifier.joblib"))
-encoder = joblib.load(os.path(root, "starter/model/encoder_census.joblib"))
-lb = joblib.load(os.path(root, "starter/model/lb_census.joblib"))
+# model = joblib.load("./starter/model/census_model_classifier.joblib")
+# encoder = joblib.load("./starter/model/encoder_census.joblib")
+# lb = joblib.load("./starter/model/lb_census.joblib")
+
+model = joblib.load(os.path.join(root, "starter/model/census_model_classifier.joblib"))
+encoder = joblib.load(os.path.join(root, "starter/model/encoder_census.joblib"))
+lb = joblib.load(os.path.join(root, "starter/model/lb_census.joblib"))
 
 
 class CensusData(BaseModel):
