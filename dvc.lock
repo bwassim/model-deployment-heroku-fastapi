@@ -30,11 +30,11 @@ stages:
       size: 3834
     outs:
     - path: starter/data/census_cleaned_test.csv
-      md5: 8888257b22df58e9cc29fa8bd9215a61
-      size: 703478
+      md5: 81b7302a00d69f1a3844497927751113
+      size: 703968
     - path: starter/model/census_model_classifier.joblib
-      md5: 16ddfcdc02898e8081c2fe429b1392cf
-      size: 1646
+      md5: b462e33281ccf33b55511e4980104694
+      size: 1639
     - path: starter/model/encoder_census.joblib
       md5: cda18c6561b7ef57f19f48d00d3ff62b
       size: 3898
@@ -45,11 +45,11 @@ stages:
     cmd: python starter/starter/slicing_performence.py
     deps:
     - path: starter/data/census_cleaned_test.csv
-      md5: 8888257b22df58e9cc29fa8bd9215a61
-      size: 703478
+      md5: 81b7302a00d69f1a3844497927751113
+      size: 703968
     - path: starter/model/census_model_classifier.joblib
-      md5: 16ddfcdc02898e8081c2fe429b1392cf
-      size: 1646
+      md5: b462e33281ccf33b55511e4980104694
+      size: 1639
     - path: starter/model/encoder_census.joblib
       md5: cda18c6561b7ef57f19f48d00d3ff62b
       size: 3898
@@ -61,8 +61,8 @@ stages:
       size: 4428
     outs:
     - path: starter/model/score_full.json
-      md5: 12bcda9ef0b8e00b9015fec6886fa241
-      size: 109
+      md5: b0f82c479fb6a1b4dfc4b2233d8c0544
+      size: 111
     - path: starter/model/score_slices.json
-      md5: 5eb49fe3ada2f26b66b7dfc223936313
-      size: 18798
+      md5: f73c2c58e1ea91564b240e60bb47c334
+      size: 18439
