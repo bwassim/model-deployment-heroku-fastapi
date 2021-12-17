@@ -13,14 +13,9 @@ from starter.starter.ml.model import inference
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
     os.system("dvc config core.hardlink_lock true")
-    dvc_output = subprocess.run(["dvc", "pull"], capture_output=True, text=True)
-    print(dvc_output.stdout)
-    print(dvc_output.stderr)
-    if dvc_output.returncode != 0:
-        print("dvc pull failed")
-    else:
-        os.system("rm -r .dvc .apt/usr/lib/dvc")
-
+    if os.system("dvc pull -r s3remote") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 # root = os.getcwd()
 # from os.path import dirname, abspath
 
