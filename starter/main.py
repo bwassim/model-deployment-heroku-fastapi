@@ -21,7 +21,10 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     else:
         os.system("rm -r .dvc .apt/usr/lib/dvc")
 
-root = os.getcwd()
+#root = os.getcwd()
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
+sys.path.append(d)
 
 app = FastAPI()
 
