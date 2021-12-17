@@ -10,6 +10,7 @@ from starter.starter.ml.model import inference
 
 # Heroku support for DVC, so it can pull in data from DVC upon app startup
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("rm -r .dvc/tmp/lock")
     os.system("dvc config core.no_scm true")
     os.system("dvc config core.hardlink_lock true")
     if os.system("dvc pull -r s3remote") != 0:
