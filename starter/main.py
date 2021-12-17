@@ -8,13 +8,12 @@ import subprocess
 import sys
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
-sys.path.append('./starter')
 
 # Heroku support for DVC, so it can pull in data from DVC upon app startup
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
     os.system("dvc config core.hardlink_lock true")
-    dvc_output = subprocess.run(["dvc", "pull train_model"], capture_output=True, text=True)
+    dvc_output = subprocess.run(["dvc", "pull"], capture_output=True, text=True)
     print(dvc_output.stdout)
     print(dvc_output.stderr)
     if dvc_output.returncode != 0:
