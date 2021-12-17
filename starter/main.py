@@ -4,8 +4,7 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, Field
-import subprocess
-import sys
+
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
 
