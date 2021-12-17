@@ -5,15 +5,14 @@ import pandas as pd
 from fastapi import FastAPI, Body
 from pydantic import BaseModel, Field
 import subprocess
-
+import sys
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
 
 # Heroku support for DVC, so it can pull in data from DVC upon app startup
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
-    dvc_output = subprocess.run(
-        ["dvc", "pull"], capture_output=True, text=True)
+    dvc_output = subprocess.run(["dvc", "pull"], capture_output=True, text=True)
     print(dvc_output.stdout)
     print(dvc_output.stderr)
     if dvc_output.returncode != 0:
@@ -21,8 +20,9 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     else:
         os.system("rm -r .dvc .apt/usr/lib/dvc")
 
-#root = os.getcwd()
+# root = os.getcwd()
 from os.path import dirname, abspath
+
 d = dirname(dirname(abspath(__file__)))
 sys.path.append(d)
 
