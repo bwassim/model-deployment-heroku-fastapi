@@ -8,6 +8,7 @@ import subprocess
 import sys
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
+sys.path.append('./starter')
 
 # Heroku support for DVC, so it can pull in data from DVC upon app startup
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
@@ -23,8 +24,9 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
 # root = os.getcwd()
 from os.path import dirname, abspath
 
-d = dirname(dirname(abspath(__file__)))
-sys.path.append(d)
+# d = dirname(dirname(abspath(__file__)))
+# sys.path.append(d)
+
 
 app = FastAPI()
 
