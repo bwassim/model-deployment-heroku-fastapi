@@ -28,9 +28,9 @@ sys.path.append(d)
 
 app = FastAPI()
 
-model = joblib.load("./starter/model/census_model_classifier.joblib")
-encoder = joblib.load("./starter/model/encoder_census.joblib")
-lb = joblib.load("./starter/model/lb_census.joblib")
+model = joblib.load("starter/model/census_model_classifier.joblib")
+encoder = joblib.load("starter/model/encoder_census.joblib")
+lb = joblib.load("starter/model/lb_census.joblib")
 
 # model = joblib.load(os.path.join(root, "starter/model/census_model_classifier.joblib"))
 # encoder = joblib.load(os.path.join(root, "starter/model/encoder_census.joblib"))
