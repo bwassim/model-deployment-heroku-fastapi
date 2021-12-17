@@ -1,0 +1,4 @@
+outs:
+- md5: b462e33281ccf33b55511e4980104694
+  size: 1639
+  path: census_model_classifier.joblib
