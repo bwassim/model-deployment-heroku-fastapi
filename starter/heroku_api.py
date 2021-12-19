@@ -25,7 +25,7 @@ def prediction_below(args):
         "hours-per-week": 40,
         "native-country": "United-States",
     }
-    response = requests.post(f"{args.base_url}/predict", json=body)
+    response = requests.post(f"{args.base_url}predict", json=body)
     assert response.status_code == 200
     logger.info("Response status code for prediction below %s", response.status_code)
     assert response.status_code == 200
@@ -54,7 +54,7 @@ def prediction_above(args):
         "hours-per-week": 50,
         "native-country": "United-States",
     }
-    response = requests.post(f"{args.base_url}/predict", json=body)
+    response = requests.post(f"{args.base_url}predict", json=body)
     assert response.status_code == 200
 
     logger.info("Response status code for prediction below %s", response.status_code)
