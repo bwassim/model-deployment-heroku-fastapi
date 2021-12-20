@@ -23,14 +23,14 @@ The Github actions are triggered each time we push a new change to our repositor
 
 ![pipeline](starter/screenshots/continuous_integration.png)
 
-# Exploratory Data Analysis
+# 1. Exploratory Data Analysis
 The data consist of 32561 rows entries. The necessary steps for cleaning the data can be seen in the folling jupyter notebook [https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/notebooks/EDA.ipynb](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/notebooks/EDA.ipynb)
 
 ![table_sample](starter/screenshots/table_sample.png)
 
 The final script for cleaning our data is given by [clean_data.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/starter/clean_data.py)
 
-# Model
+# 2. Model
 * I have chosen to start initially with a very simple model given by a `Logistic Regression` classifier from the scikit-learn library. Since the focus here was on the big picture of how to deploy a machine learning pipeline from start till the moment to query the endpoint with a POST request. 
 
 To train the model run the following python code [train_model.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/starter/train_model.py)
@@ -43,8 +43,8 @@ The obtained scores are given below
 The results for model slicing can be found in [score_slices.json](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/model/score_slices.json)
 
 
-# Testing
-In order to avoid erros that can make our pipeline fails, it is a good practice to include testing everywhere. After cleaning the following tests on the data are applied
+# 3. Testing
+In order to avoid erros that can make our pipeline fails, it is a good practice to include testing everywhere. After cleaning, the following tests on the data are applied
 
 test_data:
   - `test_class_names`: Check that only the known classes are present 
@@ -58,7 +58,23 @@ test_model:
 ![ff](starter/screenshots/test_data_model.png)
 
 
-# API Creation
+# Data Version Control (DVC)
+DVC is a complete solution for managing data, model, and the process of going from data to model. DVC uses GIT for versioning. It leverages a remote storage to hold the data and then tracks a record file using git (eg., `data.csv.dvc`)
+
+Initialize and start dvc inside a git repository
+> dvc init
+
+Configure a remote storage (`AWS s3 remote bucket`)
+> dvc remote add -d s3remote s3://census-bucket-udacity
+
+Start tracking files 
+> dvc add starter/data/census.csv 
+
+
+
+
+
+
 *  Create a RESTful API using FastAPI this must implement:
     * GET on the root giving a welcome message.
     * POST that does model inference.

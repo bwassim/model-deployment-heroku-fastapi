@@ -1,0 +1,68 @@
+schema: '2.0'
+stages:
+  clean_data:
+    cmd: python starter/starter/clean_data.py
+    deps:
+    - path: starter/data/census.csv
+      md5: 145de00f6e6053d3f7044628f9a5b5ff
+      size: 3974474
+    - path: starter/starter/clean_data.py
+      md5: 794aa8f2710144d94bf643aa981588ae
+      size: 1466
+    outs:
+    - path: starter/data/census_cleaned.csv
+      md5: 109c3c826741a590001de91b594b05e3
+      size: 3518605
+  train_model:
+    cmd: python starter/starter/train_model.py
+    deps:
+    - path: starter/data/census_cleaned.csv
+      md5: 109c3c826741a590001de91b594b05e3
+      size: 3518605
+    - path: starter/starter/ml/data.py
+      md5: 7a5d03f6703af2f1b72e9705e366eb69
+      size: 2543
+    - path: starter/starter/ml/model.py
+      md5: de49ea39aec2b66c333ddd651a0bc722
+      size: 1970
+    - path: starter/starter/train_model.py
+      md5: 02273e3ee1c4cc22078c16f99ac5c373
+      size: 3834
+    outs:
+    - path: starter/data/census_cleaned_test.csv
+      md5: cad0e5a89f93cd05bf382dd66ac0c22b
+      size: 704209
+    - path: starter/model/census_model_classifier.joblib
+      md5: a1c7c79a51e02054e814a8660e7247ab
+      size: 1639
+    - path: starter/model/encoder_census.joblib
+      md5: cda18c6561b7ef57f19f48d00d3ff62b
+      size: 3898
+    - path: starter/model/lb_census.joblib
+      md5: 5025695085b01a6b6c57df2159831c2d
+      size: 403
+  slicing_performence:
+    cmd: python starter/starter/slicing_performence.py
+    deps:
+    - path: starter/data/census_cleaned_test.csv
+      md5: cad0e5a89f93cd05bf382dd66ac0c22b
+      size: 704209
+    - path: starter/model/census_model_classifier.joblib
+      md5: a1c7c79a51e02054e814a8660e7247ab
+      size: 1639
+    - path: starter/model/encoder_census.joblib
+      md5: cda18c6561b7ef57f19f48d00d3ff62b
+      size: 3898
+    - path: starter/model/lb_census.joblib
+      md5: 5025695085b01a6b6c57df2159831c2d
+      size: 403
+    - path: starter/starter/slicing_performence.py
+      md5: 77e5a70555f42b5177362c968a35792e
+      size: 4428
+    outs:
+    - path: starter/model/score_full.json
+      md5: 62e17ed40a1d0f2e2629c0247a2f9f50
+      size: 111
+    - path: starter/model/score_slices.json
+      md5: 4ae1305d88f12f8da702e76c94bfbce6
+      size: 18802
