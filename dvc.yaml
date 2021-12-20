@@ -1,0 +1,35 @@
+stages:
+  clean_data:
+    cmd: python starter/starter/clean_data.py
+    deps:
+    - starter/data/census.csv
+    - starter/starter/clean_data.py
+    outs:
+    - starter/data/census_cleaned.csv
+  train_model:
+    cmd: python starter/starter/train_model.py
+    deps:
+    - starter/data/census_cleaned.csv
+    - starter/starter/ml/model.py
+    - starter/starter/ml/data.py
+    - starter/starter/train_model.py
+    outs:
+    - starter/data/census_cleaned_test.csv
+    - starter/model/census_model_classifier.joblib
+    - starter/model/encoder_census.joblib
+    - starter/model/lb_census.joblib
+  slicing_performence:
+    cmd: python starter/starter/slicing_performence.py
+    deps:
+    - starter/data/census_cleaned_test.csv
+    - starter/model/census_model_classifier.joblib
+    - starter/model/encoder_census.joblib
+    - starter/model/lb_census.joblib
+    - starter/starter/slicing_performence.py
+    metrics:
+    - starter/model/score_full.json:
+        cache: false
+    plots:
+    - starter/model/score_slices.json:
+        cache: false
+        title: Slicing scores
