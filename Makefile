@@ -1,3 +1,23 @@
+.DEFAULT_GOAL := help
+
+help:
+		@echo "Please use 'make <target>' where <target> is one of"
+		@echo ""
+		@echo setup 		create a conda environment with environment.yml
+		@echo install       install dependecies for CI/CD deployment
+		@echo test 			run all the tests with pytest
+		@echo format        format all files in the starter folder
+		@echo lint 			lint code 
+		@echo dvc 			run dvc pull
+		@echo app 			run app on local server
+		@echo all			run format lint and test stages	
+		@requests			run the post request api
+		@echo export_pkg    run the conda command to export only main packages without dependencies
+
+
+setup:
+		conda env create --file environment.yml
+
 install:
 		pip install --upgrade pip && pip install -r requirements.txt
 
@@ -12,3 +32,15 @@ lint:
 
 dvc:
 		dvc pull
+
+app:
+		uvicorn starter.main:app --reload --workers 1 --host 127.0.0.1 --port 8000
+
+requests:
+		python starter/heroku_api.py
+
+all:
+		format lint test 
+		
+export_pkg:
+		conda env export --from-history --name deploy_project > envname.yml

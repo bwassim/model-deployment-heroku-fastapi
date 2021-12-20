@@ -7,7 +7,7 @@ logger = logging.getLogger()
 
 
 def test_train(process_data_train_sample):
-    """This function tests the capacity of the train_model function to generate a model
+    """This function tests the capacity of the train_model function to generate the  model
     """
     X, y, encoder, lb = process_data_train_sample
 

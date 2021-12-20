@@ -1,35 +1,62 @@
 # ML Pipeline for Census Bureau Salary Classification
+This project deploys a  CI/CD ML pipeline web app based on  the census 
+bureau salary classification dataset.
+
+Census Income Data Set: https://archive.ics.uci.edu/ml/datasets/census+income
+
 ## The pipeline leverages the use of 
 
-- Github Action
-- DVC
-- FastAPI and Heroku
-# Environment Set up
-* Download and install conda if you don’t have it already.
-    * Use the supplied requirements file to create a new environment, or
-    * conda create -n [envname] "python=3.8" scikit-learn dvc pandas numpy pytest jupyter jupyterlab fastapi uvicorn -c conda-forge
-    * Install git either through conda (“conda install git”) or through your CLI, e.g. sudo apt-get git.
+- `Github Action`: for continuous integration and continuous deployment
+- `DVC`: to manage the project dependencies (model, data, etc) and allow a reproducible pipeline
+- `FastAPI`: for web app creation and serving
+- `Heroku`: For continuos deployment of the created FastAPI app
+---
+## Environment Set up
+While on the project root folder you can use `make setup` to create a conda environment
+## Pipeline
+The pipeline uses the yaml file in .github/workspace to configure all the necessary steps. The `Makefile` is used by `census-cy.yml` to describe the run command. 
 
-## Repositories
-* Create a directory for the project and initialize git and dvc.
-    * As you work on the code, continually commit changes. Generated models you want to keep must be committed to dvc.
-* Connect your local git repo to GitHub.
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error.
-    * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
-* Set up a remote repository for dvc.
+![pipeline](starter/screenshots/pipeline.png)conotinuous_integration.png
 
-# Data
-* Download census.csv and commit it to dvc.
-* This data is messy, try to open it in pandas and see what you get.
-* To clean it, use your favorite text editor to remove all spaces.
-* Commit this modified data to dvc (we often want to keep the raw data untouched but then can keep updating the cooked version).
+## Github Action 
+The Github actions are triggered each time we push a new change to our repository.
+
+![pipeline](starter/screenshots/continuous_integration.png)
+
+# Exploratory Data Analysis
+The data consist of 32561 rows entries. The necessary steps for cleaning the data can be seen in the folling jupyter notebook [https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/notebooks/EDA.ipynb](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/notebooks/EDA.ipynb)
+
+![table_sample](starter/screenshots/table_sample.png)
+
+The final script for cleaning our data is given by [clean_data.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/starter/clean_data.py)
 
 # Model
-* Using the starter code, write a machine learning model that trains on the clean data and saves the model. Complete any function that has been started.
-* Write unit tests for at least 3 functions in the model code.
-* Write a function that outputs the performance of the model on slices of the data.
-    * Suggestion: for simplicity, the function can just output the performance on slices of just the categorical features.
-* Write a model card using the provided template.
+* I have chosen to start initially with a very simple model given by a `Logistic Regression` classifier from the scikit-learn library. Since the focus here was on the big picture of how to deploy a machine learning pipeline from start till the moment to query the endpoint with a POST request. 
+
+To train the model run the following python code [train_model.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/starter/train_model.py)
+The obtained scores are given below
+```
+     "precision": 0.7291280148423006,
+     "recall"   : 0.24904942965779467,
+     "fbeta"    : 0.37128011336797356
+```
+The results for model slicing can be found in [score_slices.json](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/model/score_slices.json)
+
+
+# Testing
+In order to avoid erros that can make our pipeline fails, it is a good practice to include testing everywhere. After cleaning the following tests on the data are applied
+
+test_data:
+  - `test_class_names`: Check that only the known classes are present 
+  - `test_process_data`: Test the shape of the test data and make sure that the encoders are correctly retrieved.
+
+test_model:
+  -  `test_train`: tests the capacity of the train_model function to generate the  model 
+  -  `test_model_metrics`: Test the model and evaluate it against the test data
+
+> pytest starter/test -vv
+![ff](starter/screenshots/test_data_model.png)
+
 
 # API Creation
 *  Create a RESTful API using FastAPI this must implement:

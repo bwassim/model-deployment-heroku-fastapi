@@ -5,8 +5,8 @@ from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 
 def test_class_names(data):
-
-    # Check that only the known classes are present
+    """Check that only the known classes are present
+    """
     required_columns = [
         "age",
         "workclass",
@@ -30,7 +30,8 @@ def test_class_names(data):
 
 
 def test_process_data(data):
-
+"""Test the shape of the test data and make sure that the encoders are correctly retrieved.
+"""
     cat_features = [
         "workclass",
         "education",
