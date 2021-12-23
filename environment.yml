@@ -1,0 +1,22 @@
+name: deploy_project
+channels:
+  - conda-forge
+dependencies:
+  - pip
+  - numpy
+  - pandas
+  - pytest
+  - uvicorn
+  - gunicorn
+  - requests
+  - fastapi
+  - scikit-learn
+  - python==3.9
+  - jupyter
+  - black
+  - wget
+  - yaml
+  - pyyaml
+  - tree
+  - ipykernel
+  - nb_conda_kernels

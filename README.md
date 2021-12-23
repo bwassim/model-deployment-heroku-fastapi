@@ -79,6 +79,7 @@ Start tracking files
 > dvc add starter/data/census.csv 
 
 We can either  track each file seperately 
+
 ![dvcdag](starter/screenshots/dvcdag.png)
 
 Or include all the steps in a dvc pipeline as described in [dvc.yml](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/dvc.yaml) file
@@ -89,6 +90,7 @@ To retrieve the latest version of our data use
 > dvc pull -r s3remote 
 
 ![aws](starter/screenshots/aws.png)
+
 or simply 
 > dvc pull
 
