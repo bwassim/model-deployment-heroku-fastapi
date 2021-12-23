@@ -101,7 +101,27 @@ async def get_prediction(
                     "hours-per-week": 40,
                     "native-country": "United-States",
                 },
-            }
+            },
+            "above": {
+                "summary": ">50K",
+                "description": "Above 50K",
+                "value": {
+                    "age": 31,
+                    "workclass": "Private",
+                    "fnlgt": 45781,
+                    "education": "Masters",
+                    "education-num": 14,
+                    "marital-status": "Never-married",
+                    "occupation": "Prof-specialty",
+                    "relationship": "Not-in-family",
+                    "race": "White",
+                    "sex": "Female",
+                    "capital-gain": 14084,
+                    "capital-loss": 0,
+                    "hours-per-week": 50,
+                    "native-country": "United-States",
+                },
+            },
         },
     )
 ):

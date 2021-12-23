@@ -23,6 +23,14 @@ The Github actions are triggered each time we push a new change to our repositor
 
 ![pipeline](starter/screenshots/continuous_integration.png)
 
+## AWS Github configuration:
+It is important to add a secret key on Github settings so that Github Action can connect to AWS with the correct credentials. That is 
+> AWS_ACCESS_KEY_ID
+>
+> AWS_SECRET_ACCESS_KEY
+
+These credentials can be found when first creating an Iam user on AWS plateform. Or it is even possible to generate new ones.
+
 # 1. Exploratory Data Analysis
 The data consist of 32561 rows entries. The necessary steps for cleaning the data can be seen in the folling jupyter notebook [https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/notebooks/EDA.ipynb](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/notebooks/EDA.ipynb)
 
@@ -70,23 +78,72 @@ Configure a remote storage (`AWS s3 remote bucket`)
 Start tracking files 
 > dvc add starter/data/census.csv 
 
+We can either  track each file seperately 
+![dvcdag](starter/screenshots/dvcdag.png)
 
+Or include all the steps in a dvc pipeline as described in [dvc.yml](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/dvc.yaml) file
 
+![](starter/screenshots/dvc_yaml.png)
 
+To retrieve the latest version of our data use 
+> dvc pull -r s3remote 
 
+![aws](starter/screenshots/aws.png)
+or simply 
+> dvc pull
 
-*  Create a RESTful API using FastAPI this must implement:
-    * GET on the root giving a welcome message.
-    * POST that does model inference.
-    * Type hinting must be used.
-    * Use a Pydantic model to ingest the body from POST. This model should contain an example.
-   	 * Hint: the data has names with hyphens and Python does not allow those as variable names. Do not modify the column names in the csv and instead use the functionality of FastAPI/Pydantic/etc to deal with this.
-* Write 3 unit tests to test the API (one for the GET and two for POST, one that tests each prediction).
+It is also possible to use the DVC pipeline and use the following 
+> dvc pull train_model
+
+To run the complete dvc pipeline 
+> dvc repro
+
+# FastAPI
+The [main.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/main.py) file contain the FastAPI app and all the function to execute a POST or GET request. For the post request, we need to provide the data as a json. To do the inference we need to convert the json data to a dataframe. 
+
+![post1](starter/screenshots/post1.png)
+![post2](starter/screenshots/pos2.png)
+
+To run the app locally, make sure the Procfile has the following config 
+> web: uvicorn starter.main:app --host=127.0.0.1 --port=${PORT:-5000}
+
+Then use
+
+> heroku local
+# API Test
+Sample data are used to validate the prediction with post request. use the [test_main.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/test_main.py) with pytest as follows 
+
+> pytest test_main.py -vv
+
+![test_main](starter/screenshots/api_test.png)
 
 # API Deployment
-* Create a free Heroku account (for the next steps you can either use the web GUI or download the Heroku CLI).
-* Create a new app and have it deployed from your GitHub repository.
-    * Enable automatic deployments that only deploy if your continuous integration passes.
-    * Hint: think about how paths will differ in your local environment vs. on Heroku.
-    * Hint: development in Python is fast! But how fast you can iterate slows down if you rely on your CI/CD to fail before fixing an issue. I like to run flake8 locally before I commit changes.
-* Write a script that uses the requests module to do one POST on your live API.
+
+* For online deployment create a free Heroku account (for the next steps you can either use the web GUI or download the Heroku CLI).
+
+* Create a new app, give it a name, e.g.,  `census-bureau-predict-salary`,  have it deployed from the GitHub repository.
+* Enable automatic deployments that only deploy if the continuous integration passes.
+![cts_deploy](starter/screenshots/continuous_deloyment.png)
+
+* to allow heroku to use DVC follow the instruction on [dvc_on_heroku_instructions.md](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/dvc_on_heroku_instructions.md)
+* 
+Make sure to configure AWS credentials for heroku on the local terminal with 
+> heroku config:set AWS_ACCESS_KEY_ID=[] AWS_SECRET_ACCESS_KEY=[] AWS_REGION=[]
+
+or simply 
+> heroku config
+
+To track the deployment logs use on the local terminal 
+> heroku logs --tail
+
+![](starter/screenshots/heroku_logs.png)
+
+- Once the app deployed you can launch queries with [heroku_api.py](https://github.com/bwassim/model-deployment-heroku-fastapi/blob/master/starter/heroku_api.py)
+
+> python heroku_api.py 
+
+and check the logs 
+Once the app finishes the deployment with `build succeeded` message, it is possible to open the link on a browser on https://census-bureau-predict-salary.herokuapp.com/ and
+run heroku_api.py
+
+![](starter/screenshots/live_post.png)
