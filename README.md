@@ -16,7 +16,7 @@ While on the project root folder you can use `make setup` to create a conda envi
 ## Pipeline
 The pipeline uses the yaml file in .github/workspace to configure all the necessary steps. The `Makefile` is used by `census-cy.yml` to describe the run command. 
 
-![pipeline](starter/screenshots/pipeline.png)conotinuous_integration.png
+![pipeline](starter/screenshots/pipeline.png)
 
 ## Github Action 
 The Github actions are triggered each time we push a new change to our repository.
